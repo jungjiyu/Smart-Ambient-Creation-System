@@ -1,6 +1,6 @@
 package com.raspberrypi.iot.sensor.service;
 
-import com.raspberrypi.iot.sensor.dto.request.SensorDataDTO;
+import com.raspberrypi.iot.sensor.dto.SensorDataDTO;
 import com.raspberrypi.iot.sensor.entity.Light;
 import com.raspberrypi.iot.sensor.entity.Sound;
 import com.raspberrypi.iot.sensor.entity.TemperatureHumidity;

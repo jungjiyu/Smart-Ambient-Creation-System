@@ -1,4 +1,4 @@
-package com.raspberrypi.iot.sensor.dto.request;
+package com.raspberrypi.iot.sensor.dto;
 
 import lombok.Builder;
 import lombok.Getter;

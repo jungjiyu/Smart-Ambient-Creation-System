@@ -1,6 +1,6 @@
 package com.raspberrypi.iot.sensor.controller;
 
-import com.raspberrypi.iot.sensor.dto.request.SensorDataDTO;
+import com.raspberrypi.iot.sensor.dto.SensorDataDTO;
 import com.raspberrypi.iot.sensor.service.SensorService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
