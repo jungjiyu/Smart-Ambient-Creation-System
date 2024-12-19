@@ -6,10 +6,7 @@ import com.raspberrypi.iot.raspberrypi.dto.request.SensorDataDTO;
 import com.raspberrypi.iot.raspberrypi.enums.SensorDataLevel;
 import com.raspberrypi.iot.raspberrypi.service.SensorService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,45 +20,28 @@ public class OpenAIApiController {
     private final SensorService sensorService;
 
 
-    // 프롬프트 직접
     @PostMapping("/complete")
     public String complete(@RequestBody OpenAIRequest.Basic openAIRequest) throws IOException {
         return openAIService.complete(openAIRequest);
     }
 
-    // 시 작성
     @PostMapping("/poem")
     public String createPoem() throws IOException {
         SensorDataDTO latestSensorData = sensorService.getLatestSensorData();
         return openAIService.createPoem(latestSensorData);
     }
 
-
-
-
-    //테스트용. 직접 호출할 일은 x
     @PostMapping("/youtube")
-    public String recommendYoutubeUrl(@RequestBody List<SensorDataLevel> sensorLevels) throws IOException {
-        return openAIService.recommendYoutubeUrl(sensorLevels);
+    public String recommendYoutubeUrl() throws IOException {
+        SensorDataDTO latestSensorData = sensorService.getLatestSensorData();
+        return openAIService.recommendYoutubeUrl(latestSensorData);
     }
 
-    //테스트용. 직접 호출할 일은 x
     @PostMapping("/led")
-    public String recommendLedColor(@RequestBody List<SensorDataLevel> sensorLevels) throws IOException {
-        return openAIService.recommendLedColor(sensorLevels);
+    public String recommendLedColor() throws IOException {
+        SensorDataDTO latestSensorData = sensorService.getLatestSensorData();
+        return openAIService.recommendLedColor(latestSensorData);
     }
 
-
-
-
-
-
-//
-//    // 여러 문장을 하나로 합쳐 글을 작성
-//    @PostMapping("/compose")
-//    public String composeText(@RequestBody  OpenAIRequest.TextCompose request) throws IOException {
-//        return openAIService.composeText(request);
-//    }
-//
 
 }

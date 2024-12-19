@@ -15,6 +15,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/sensor")
+//@CrossOrigin(origins = "http://localhost:3000") // 프론트엔드 URL
 public class RaspberrypiController {
     private final SensorService sensorService;
     private LedColor currentLedColor = LedColor.OFF;  // 기본 LED 색상

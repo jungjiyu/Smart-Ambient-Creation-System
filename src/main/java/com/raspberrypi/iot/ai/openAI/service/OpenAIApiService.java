@@ -106,7 +106,8 @@ public class OpenAIApiService {
 //
 //    }
 
-    public String recommendYoutubeUrl(List<SensorDataLevel> sensorLevels) throws IOException {
+    public String recommendYoutubeUrl(SensorDataDTO latestSensorData) throws IOException {
+        List<SensorDataLevel> sensorLevels = sensorDataUtil.classifyAll(latestSensorData);
         // Step 1: AI로부터 노래 제목 추천받기
         String songTitle = recommendYoutubeTitle(sensorLevels);
         log.info("Recommended Song Title: {}", songTitle);
@@ -173,9 +174,9 @@ public class OpenAIApiService {
     }
 
 
-    public String recommendLedColor(List<SensorDataLevel> sensorLevels) throws IOException {
+    public String recommendLedColor(SensorDataDTO latestSensorData) throws IOException {
         String model = "gpt-4o-mini";
-
+        List<SensorDataLevel> sensorLevels = sensorDataUtil.classifyAll(latestSensorData);
         String prompt = sensorDataUtil.convertAllDescriptions(sensorLevels);
 
         // OpenAI API 요청 본문 생성

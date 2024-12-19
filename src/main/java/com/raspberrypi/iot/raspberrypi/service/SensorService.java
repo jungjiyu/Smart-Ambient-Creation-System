@@ -35,11 +35,10 @@ public class SensorService {
     public SensorDataResponseDTO receiveSensorData(SensorDataDTO sensorDataDTO) throws IOException  {
         // 센서 데이터 저장
         saveSensorDatas(sensorDataDTO);
-        // 센서 데이터 특정 기준치로 변환
-        List<SensorDataLevel> levels = sensorDataUtil.classifyAll(sensorDataDTO);
-        // 변환한 기준치를 바탕으로 yt_url 과 led 색상 판별
-        String youtubeUrl = openAIApiService.recommendYoutubeUrl(levels);
-        String ledColor = openAIApiService.recommendLedColor(levels);
+
+        // yt_url 과 led 색상 판별
+        String youtubeUrl = openAIApiService.recommendYoutubeUrl(sensorDataDTO);
+        String ledColor = openAIApiService.recommendLedColor(sensorDataDTO);
 
         SensorDataResponseDTO responseDTO = SensorDataResponseDTO.builder()
                         .inputData(sensorDataDTO)
@@ -77,18 +76,28 @@ public class SensorService {
 
     public SensorDataDTO getLatestSensorData() {
         // 각각의 센서 데이터 중 가장 최근에 저장된 데이터를 가져옴
-        TemperatureHumidity latestTempHumid = temperatureHumidityRepository.findTopByOrderByIdDesc();
-        Light latestLightSensor = lightRepository.findTopByOrderByIdDesc();
-        Sound latestSoundSensor = soundRepository.findTopByOrderByIdDesc();
+        TemperatureHumidity latestTempHumid = temperatureHumidityRepository.findTopByOrderByIdDesc().orElse(null);
+        Light latestLightSensor = lightRepository.findTopByOrderByIdDesc().orElse(null);
+        Sound latestSoundSensor = soundRepository.findTopByOrderByIdDesc().orElse(null);
+
+
+        // Optional을 사용하여 기본값 설정
+        float temperature = (latestTempHumid != null) ? latestTempHumid.getTemperature() : 0.0f;
+        float humidity = (latestTempHumid != null) ? latestTempHumid.getHumidity() : 0.0f;
+        int lightSensorValue = (latestLightSensor != null) ? latestLightSensor.getLightSensorValue() : 0;
+        float lightResistance = (latestLightSensor != null) ? latestLightSensor.getLightResistance() : 0.0f;
+        int soundLevel = (latestSoundSensor != null) ? latestSoundSensor.getSoundLevel() : 0;
 
         // SensorDataDTO로 종합하여 반환
-        SensorDataDTO sensorDataDTO =  SensorDataDTO.builder()
-                .temperature(latestTempHumid.getTemperature())
-                .humidity(latestTempHumid.getHumidity())
-                .lightSensorValue(latestLightSensor.getLightSensorValue())
-                .lightResistance(latestLightSensor.getLightResistance())
-                .soundLevel(latestSoundSensor.getSoundLevel())
+        SensorDataDTO sensorDataDTO = SensorDataDTO.builder()
+                .temperature(temperature)
+                .humidity(humidity)
+                .lightSensorValue(lightSensorValue)
+                .lightResistance(lightResistance)
+                .soundLevel(soundLevel)
                 .build();
+
+
 
         log.info("latest sensorDataDto: {}", sensorDataDTO);
         return sensorDataDTO;
