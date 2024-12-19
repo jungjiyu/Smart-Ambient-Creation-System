@@ -1,5 +1,6 @@
 package com.raspberrypi.iot.ai.openAI.dto.request;
 
+import com.raspberrypi.iot.raspberrypi.enums.SensorDataLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,6 +29,16 @@ public class OpenAIRequest {
         private String model;
         private List<String> sentences;
     }
+
+
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class YoutubeUrl {
+        private List<SensorDataLevel> levels;
+    }
+
 
 
 

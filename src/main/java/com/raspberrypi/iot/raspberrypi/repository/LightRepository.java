@@ -1,6 +1,6 @@
-package com.raspberrypi.iot.sensor.repository;
+package com.raspberrypi.iot.raspberrypi.repository;
 
-import com.raspberrypi.iot.sensor.entity.Light;
+import com.raspberrypi.iot.raspberrypi.entity.Light;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LightRepository extends JpaRepository<Light, Long> {

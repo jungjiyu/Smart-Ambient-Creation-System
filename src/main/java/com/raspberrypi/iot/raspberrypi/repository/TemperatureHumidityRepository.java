@@ -1,6 +1,6 @@
-package com.raspberrypi.iot.sensor.repository;
+package com.raspberrypi.iot.raspberrypi.repository;
 
-import com.raspberrypi.iot.sensor.entity.TemperatureHumidity;
+import com.raspberrypi.iot.raspberrypi.entity.TemperatureHumidity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TemperatureHumidityRepository extends JpaRepository<TemperatureHumidity, Long> {

@@ -1,4 +1,4 @@
-package com.raspberrypi.iot.sensor.entity;
+package com.raspberrypi.iot.raspberrypi.entity;
 
 import com.raspberrypi.iot.global.entity.BaseEntity;
 import jakarta.persistence.Entity;
